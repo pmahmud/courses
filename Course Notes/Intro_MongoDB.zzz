@@ -1,5 +1,5 @@
 ~---------------------------------------------------------------------------------------
-:: Introductio to MongoDB ::
+:: Introduction to MongoDB ::
 ~---------------------------------------------------------------------------------------
 Link: https://app.pluralsight.com/library/courses/mongodb-introduction/table-of-contents
 ~---------------------------------------------------------------------------------------
@@ -9,8 +9,8 @@ Install mongodb as a service:
 	- mongod -f c:\someconfig.cong --install
 	- net start mongodb
 	- net start | findstr Mongo
-	
-	
+
+
 Conntect to MongoDB via shell
 
 - mongo:
@@ -19,23 +19,23 @@ Conntect to MongoDB via shell
 	> ~db : which database are you using now
 	> ~use anotherDBName: connect to another database
 	> ~help: get all the help
-	
-	
+
+
 # Replica set:
 	- PrimaryDB: the one and only that allows write, locks documents
 	- SecondaryDBS: can be several
 	- ArbiterDB: helps to decide which secondary will be the next primary
-	
+
 Connect shell to a different port:
 	~mongo --port 3000
 	~db.getMongo() : this would tell us which server you are connected to
 	~setting up three replica set: https://app.pluralsight.com/player?course=mongodb-introduction&author=nuri-halperin&name=mongodb-introduction-m1&clip=10&mode=live
-	
+
 	 ~how_to_setup_replica_in_docker:
 	 http://www.sohamkamani.com/blog/2016/06/30/docker-mongo-replica-set/
-	 
-	 
-	 
+
+
+
 :: Mongo Shell ::
 - history: up/down
 - ctrl + l : clear screen
@@ -166,6 +166,6 @@ options: name, build now? unique, sparse? ttl? language?
 
 compound index:
 ~db.foo.ensureIndex({tags:1,name:1})
-	
+
 ~db.foo.ensureIndex({name:1},{background:true})
 ~db.foo.ensureIndex({name:1},{name:'blah'})

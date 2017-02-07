@@ -2,12 +2,11 @@
 :: Mongoose for NodeJS and MongoDB ::
 https://app.pluralsight.com/player?course=mongoose-for-nodejs-mongodb
 ~--------------------------------------------------------------------------------------------------
-C:\git\allelse\courses\mongoose_PS
+../mongoose_PS
 ~--------------------------------------------------------------------------------------------------
 
-
 - robomongo : visual browsers like phpMyAdmin
-- express -H : create an express sit with Hogan engine
+- express -H : create an express with Hogan engine
 
 :: docker-compose.yml ::
 db:
@@ -15,7 +14,7 @@ db:
     ports:
         - "27017:27017"
     restart: always
-    
+
 web:
     build: .
     volumes:
@@ -25,7 +24,7 @@ web:
     links:
         - db
     command: node /app/bin/www
-	
+
 :: DockerFile ::
 FROM node:6.6.0
 
@@ -79,5 +78,5 @@ const addressSchema = new Schema({
 - break into child schemas, looks cleaner
 
 - if you need to have field name type then it needs to be:
-
-type: {type: String}
+ 
+:: type: {type: String} ::
