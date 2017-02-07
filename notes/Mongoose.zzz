@@ -1,9 +1,9 @@
-~--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 :: Mongoose for NodeJS and MongoDB ::
 https://app.pluralsight.com/player?course=mongoose-for-nodejs-mongodb
-~--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 ../source/mongoose
-~--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 12:35 PM 2/7/2017
 
 - robomongo : visual browsers like phpMyAdmin
@@ -11,7 +11,7 @@ https://app.pluralsight.com/player?course=mongoose-for-nodejs-mongodb
 
 :: docker-compose.yml ::
 db:
-    image: mongo
+    image: mongo:latest
     ports:
         - "27017:27017"
     restart: always
@@ -79,5 +79,4 @@ const addressSchema = new Schema({
 - break into child schemas, looks cleaner
 
 - if you need to have field name type then it needs to be:
-
-:: type: {type: String} ::
+~type: {type: String} 
