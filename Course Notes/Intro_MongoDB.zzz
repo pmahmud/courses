@@ -1,0 +1,171 @@
+~---------------------------------------------------------------------------------------
+:: Introductio to MongoDB ::
+~---------------------------------------------------------------------------------------
+Link: https://app.pluralsight.com/library/courses/mongodb-introduction/table-of-contents
+~---------------------------------------------------------------------------------------
+
+
+Install mongodb as a service:
+	- mongod -f c:\someconfig.cong --install
+	- net start mongodb
+	- net start | findstr Mongo
+	
+	
+Conntect to MongoDB via shell
+
+- mongo:
+	> ~show dbs : show all the databases
+	? ~local : internal stuff
+	> ~db : which database are you using now
+	> ~use anotherDBName: connect to another database
+	> ~help: get all the help
+	
+	
+# Replica set:
+	- PrimaryDB: the one and only that allows write, locks documents
+	- SecondaryDBS: can be several
+	- ArbiterDB: helps to decide which secondary will be the next primary
+	
+Connect shell to a different port:
+	~mongo --port 3000
+	~db.getMongo() : this would tell us which server you are connected to
+	~setting up three replica set: https://app.pluralsight.com/player?course=mongodb-introduction&author=nuri-halperin&name=mongodb-introduction-m1&clip=10&mode=live
+	
+	 ~how_to_setup_replica_in_docker:
+	 http://www.sohamkamani.com/blog/2016/06/30/docker-mongo-replica-set/
+	 
+	 
+	 
+:: Mongo Shell ::
+- history: up/down
+- ctrl + l : clear screen
+
+
+- Mongo uses memory mapped file (memory to disk)
+- Saved as BSON (bsonspec.org)
+- SchemaLess
+
+:: when setting up mongo change the mongo.drop to prevent dropping database in production ::
+
+
+Saving Data
+- A document must have an _id field
+- No more schema restriction
+- Schema restriction can be applied in application level (mongoose)
+
+::Save/Insert::
+
+~db: show the current database
+~show collections : show all the collections
+~db.foo.save({_id:1,x:2})
+~db.foo.find()
+~_id: can be string, number, date or complex object but not an array
+~ObjectId(): generates an unique GUID each time you run it
+~ObjectId().getTimeStamp(): each objectID has a timestamp embedded in it
+
+~db.foo.insert({_id:blah}) : this will prevent inserting same id, save will overrite the document with the same id
+
+_id could be email: and insert will prevent duplicate email enteries
+
+~db.user.find().pretty() : print it in a pretty format
+
+
+:: Update::
+- update is atomic withing a document
+- concurrent update commands will execute sequentially
+
+~db.foo.update(query,update,options): which document,  what change, one many, upsert?
+
+~db.foo.update({_id:1},{$inc:{x:1}): increment operator
+~db.foo.update({_id:1},{$set:{y:3}): add a new field
+~db.foo.update({_id:1},{$unset:{y:''}): remove a field
+~db.foo.update({_id:1},{$rename:{'Naem':'Name'}}) : rename a field
+~db.foo.update({_id:1},{$push:{things:'one'}): push or create an array, might create duplicate item in the array
+~db.foo.update({_id:1},{$addToSet:{things:'one'}): only add if that does not exist in that array
+~db.foo.update({_id:1},{$pull:{things:'one'}): remove all occurances of one in things array
+
+
+~db.foo.update({_id:1},{$pop:{things:1}): removes the last item
+~db.foo.update({_id:1},{$pop:{things:-1}): removes the first item
+
+
+::Update multiple field::
+
+{_id:1, things: [1,2]}
+{_id:2, things: [3]}
+{_id:3, things: [5,2]}
+
+
+~db.foo.update({},{$push:{things:4}}) : will update just one
+~db.foo.update({},{$push:{things:4}},{mulyi:true}) : will update all that matches
+
+~db.foo.update({things:2},{$push:{things:4}},{mulyi:true}) : will update all entries that have 2 in their array
+
+
+~db.foo.findAndModify(query,update,upsert,remove,new,sort,fields): find exactly one document and modify that
+
+
+
+:: Finding Documents ::
+- db.foo.find(query, projection) : which document, what fields?
+
+~db.a.find({_id:1},{_id:1}) : find id:1 and return id only
+~db.a.find({_id:{$gt:5},{_id:1}) : greater than:
+~db.a.find({_id:{$lt:5},{_id:1}) : less than
+~db.a.find({_id:{$gte:5},{_id:1})
+~db.a.find({_id:{$lte:5},{_id:1})
+~db.a.find({_id:{$not:{$gt:5}}},{_id:1})
+~db.a.find({_id:{$in:[1,3]}},{_id:1})
+~db.a.find({_id:{$nin:[1,3]}},{_id:1})
+
+~db.a.find({tags:{$in:['sports','football']}},{name:1})
+~db.a.find({tags:{$nin:['sports','football']}},{name:1})
+~db.a.find({tags:{$all:['sports','football']}},{name:1})
+
+~db.users.find({"address.city":'Seattle'}) : search through the nested sub document
+
+
+~db.users.find({"address.city":'Seattle',"address.zip":9802}) : need to declare separately
+
+~db.users.find({"address.city":'Seattle',"address.zip":{$exists:true}) : exist]
+
+
+:: Projection ::
+~db.foo.find({_id:1,{_id:1,name:1}) : get name and id
+~db.foo.find({_id:1,{_id:0,name:1}) : get name but not id
+
+
+:: Cursor ::
+~db.foo.find({_id:1,{_id:1,name:1})
+	- .size()
+	- hasNext()
+	- forEach(function(d){print d.name})
+	- .sort(name:1/-1) : 1 ascending, -1: descending
+	- .limit(3)
+	- .skip(2).limit(3) : paging
+~db.foo.findOne()
+
+
+
+:: Indexing ::
+- db.foo.find({x: 10})
+
+~db.foo.ensureIndex(keys, options) : which fields, in what worder? geo/text
+
+options: name, build now? unique, sparse? ttl? language?
+
+
+~db.system.indexes.find({ns:'db.foo',{key:1})
+~db.foo.find({type:'cat'}).explain()
+~db.foo.ensureIndex({name:1})
+~db.foo.dropIndex({name:1})
+~db.foo.ensureIndex({name:1},{unique:true})
+~db.foo.count()
+~db.foo.count({'info.color':{$exists:true})
+{sparse: true}
+
+compound index:
+~db.foo.ensureIndex({tags:1,name:1})
+	
+~db.foo.ensureIndex({name:1},{background:true})
+~db.foo.ensureIndex({name:1},{name:'blah'})

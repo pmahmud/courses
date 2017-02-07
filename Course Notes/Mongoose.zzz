@@ -1,0 +1,83 @@
+~--------------------------------------------------------------------------------------------------
+:: Mongoose for NodeJS and MongoDB ::
+https://app.pluralsight.com/player?course=mongoose-for-nodejs-mongodb
+~--------------------------------------------------------------------------------------------------
+C:\git\allelse\courses\mongoose_PS
+~--------------------------------------------------------------------------------------------------
+
+
+- robomongo : visual browsers like phpMyAdmin
+- express -H : create an express sit with Hogan engine
+
+:: docker-compose.yml ::
+db:
+    image: mongo
+    ports:
+        - "27017:27017"
+    restart: always
+    
+web:
+    build: .
+    volumes:
+        - ./:/app
+    ports:
+        - "3000:3000"
+    links:
+        - db
+    command: node /app/bin/www
+	
+:: DockerFile ::
+FROM node:6.6.0
+
+WORKDIR /app
+
+COPY package.json /app/package.json
+RUN npm i
+
+EXPOSE 3000
+
+:: Schema ::
+
+var mongoose = require('mongoose');
+
+var user = new mongoose.Schema({
+	name: String,
+	phone: Number
+	createdOn: Date,
+	isActive: Boolean
+});
+
+:: Data Type ::
+
+~Mongosse_Type			~JS_Type
+String					String
+Number					Number
+Date					Object
+Buffer					Object
+Boolean					Boolean
+Mixed					Object
+ObjectId				Object
+Array					Array(Object)
+
+
+const customerSchema = new Schema({
+	name:{
+		first:	String,
+		last:	String
+	},
+	address: [addressSchema],
+	createdOn: {type: Date, default:Date.now},
+	isActive: {type: Boolean, default:true}
+});
+
+const addressSchema = new Schema({
+	street: String,
+	city: String,
+	zipcode: Number
+});
+
+- break into child schemas, looks cleaner
+
+- if you need to have field name type then it needs to be:
+
+type: {type: String}

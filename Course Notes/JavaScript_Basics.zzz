@@ -1,0 +1,55 @@
+~--------------------------------------------------------------------------------------------------
+:: JavaScript Programming Basics ::
+https://app.pluralsight.com/player?course=javascript-programming-basics
+~--------------------------------------------------------------------------------------------------
+
+http://getify.com
+
+- Process in the left to right fashion
+- JS is not interpreted, rather compiled
+- JS compiler: first pass is to verify the validity of the script
+
+
+alert('hello world!'); : it's a browser thing;
+console.log('Hello');
+
+var age = prompt('what is your name?')
+
+"blah blah"[0] = "b"
+
+
+a = String(3)
+
+console.log(a) this will print 3 in black, if that had Integer type, it would print 3 in blue color
+
+a = Number(a)
+
+- In JS, values has type, variable/container does not have any type
+
+- comments: not what, it should say why and how
+
+- formally declare your variable before you use them.
+
+
+~falsy values:
+0
+-0
+NaN
+''
+false
+null
+undefined
+
+if(a){ // a must ve truthy
+	foo()
+}
+
+~void blah //make blah undefined
+
+- a loop runs until the condiftion is false
+
+a = 3.1415926;
+a.toFixed(3)
+
+
+es6fiddle.net
