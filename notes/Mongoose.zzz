@@ -2,8 +2,9 @@
 :: Mongoose for NodeJS and MongoDB ::
 https://app.pluralsight.com/player?course=mongoose-for-nodejs-mongodb
 ~--------------------------------------------------------------------------------------------------
-../mongoose_PS
+../mongoose
 ~--------------------------------------------------------------------------------------------------
+12:35 PM 2/7/2017
 
 - robomongo : visual browsers like phpMyAdmin
 - express -H : create an express with Hogan engine
@@ -78,5 +79,5 @@ const addressSchema = new Schema({
 - break into child schemas, looks cleaner
 
 - if you need to have field name type then it needs to be:
- 
+
 :: type: {type: String} ::
