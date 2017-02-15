@@ -60,7 +60,7 @@ ObjectId				Object
 Array					Array(Object)
 
 
-const customerSchema = new Schema({
+-- const customerSchema = new Schema({
 	name:{
 		first:	String,
 		last:	String
@@ -76,7 +76,119 @@ const addressSchema = new Schema({
 	zipcode: Number
 });
 
+> var Customer = mongoose.model('Customer', customerSchema);
+
 - break into child schemas, looks cleaner
 
 - if you need to have field name type then it needs to be:
 ~type: {type: String} 
+
+  
+  
+~mongoose Schema has an add method:
+
+    > standupSchema.add({blah: foo});
+	
+
+-------------------------------------------------------------------	
+:: Model.find ::
+-------------------------------------------------------------------	
+:: Model.find(conditions, [fields], [options], [callback]) ::
+-------------------------------------------------------------------	
+
+> query = Standup.find() @find_everything
+
+
+> Standup.find(function(err, results){
+	//handle error or results
+});
+
+> Standup.find({memberName: 'David'}, function(err, results){
+	//dostuff
+});
+
+> Standup.find( {memberName:'Mary'}, 'memberName impediment', function(err, result){
+	//dostuff
+});
+
+> query = Standup.findOne( //optional );
+> query.exec(function(err, result){ //do_stuff })
+  
+ > query = Standup.findById(id);
+   query.exec(function(err, result){ //do_stuff })
+
+> query = Standup.findById(id, '-impediment');
+query.exec(function(err, result){ //do_stuff })
+
+
+$gt greater than
+$gte greater than or equal to
+$in exists in
+$lt less than
+$lte less than or equal to
+$ne not equal to
+$nin does not exist
+
+  
+ 
+Custoomer.find({discount: { $gte: 10 }, function(err,res) {
+	if(err) throw err;
+	console.log(results);
+}) 
+
+Custoomer.find({discount: { $gte: 10, $lt: 20}, function(err,res) {
+	if(err) throw err;
+	console.log(results);
+}) 
+
+ 
+-------------------------------------------------------------------	
+:: Model.where(path, val) ::
+-------------------------------------------------------------------	
+Custoomer.where('discount').gte(10).lt(20).exec(function(err,res) {
+	if(err) throw err;
+	console.log(results);
+}) 
+
+Custoomer.where('discount').gte(10).lt(20)
+.where('zipcode','98000')
+.exec(function(err,res) {
+	if(err) throw err;
+	console.log(results);
+}) 
+
+ 
+ 
+ :: Update ::
+ 
+ Standup.findById(id).exec(function(err,res){
+	if(err) return errorHandler(err);
+	
+	doc.impediment('None');
+	doc.save(function(err){
+		if(err) return errorHandler(err);
+		console.info('Document updated');
+	});
+ }
+ 
+ 
+~hello_world
+$hi_there
+!be_careful_out_there
+^This_might_be_tricky
+@watchout_for_at_signs
+#I_think_this_might_be_a_hoax
+//comment_your_code
+https://www.google.com
+-- hello world
+* item 1.
+* item 2.
+* item 3.
+:: hello world ::
+> hello_world.
+note: hello.
+attn: hello.
+`hey there hey there`
+[ header 1]
+| header 2 |
+] header 3 [

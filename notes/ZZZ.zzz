@@ -3,7 +3,7 @@
 
 $hi_there
 
-!be_careful
+!be_careful_out_there
 
 ^This_might_be_tricky
 
@@ -23,7 +23,7 @@ https://www.google.com
 
 :: hello world ::
 
-> hello_world <
+> hello_world.
 
 note: hello.
 

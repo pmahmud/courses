@@ -32,7 +32,7 @@
             <Keywords name="Keywords6">@</Keywords>
             <Keywords name="Keywords7">#</Keywords>
             <Keywords name="Keywords8">//</Keywords>
-            <Keywords name="Delimiters">00* 01\ 02. 03&gt; 04\ 05&lt; 06| 07\ 08| 09note: 10\ 11. 12attn: 13\ 14. 15` 16\ 17` 18[ 19\ 20] 21] 22\ 23[</Keywords>
+            <Keywords name="Delimiters">00* 01\ 02. 03&gt; 04\ 05. 06| 07\ 08| 09note: 10\ 11. 12attn: 13\ 14. 15` 16\ 17` 18[ 19\ 20] 21] 22\ 23[</Keywords>
         </KeywordLists>
         <Styles>
             <WordsStyle name="DEFAULT" fgColor="C8C8C8" bgColor="1E1E1E" fontName="" fontStyle="0" fontSize="" nesting="0" />
