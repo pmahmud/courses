@@ -1,12 +1,12 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const BlogPage = () => (
+const AboutPage = () => (
   <div>
-    <h1>Blogs</h1>
-    <p> This is where we blog. </p>
+    <h1>About</h1>
+    <p> This page is about me </p>
     <Link to="/">Go back to home page</Link>
   </div>
 )
 
-export default BlogPage
+export default AboutPage
